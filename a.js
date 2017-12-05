@@ -1,8 +1,8 @@
 // Mandlebrot runs a certain # of iterations
-const MAX_ITERS_PER_PIXEL = 100;
+const MAX_ITERS_PER_PIXEL = 200;
 
 // How many pixels to render per frame
-const PIXELS_PER_FRAME = 10;
+const PIXELS_PER_FRAME = 5000;
 
 // The area to draw
 const UPPER_LEFT = { x: -2.5, y: -1.75 };
@@ -103,16 +103,8 @@ module.addFunction('mandelbrot', iff, [Binaryen.f32, Binaryen.f32, Binaryen.f32,
 // export it as the same name as it has internally)
 module.addFunctionExport('mandelbrot', 'mandelbrot');
 
-// Print out the text
-console.log(module.emitText());
-
-if (!module.validate()) throw 'bad module :(';
-
 // Optimize the module! This adds tee_local, removes a return, etc.
 module.optimize();
-
-// Print out the optimized module's text
-console.log('optimized:\n\n' + module.emitText());
 
 // Get the binary in typed array form
 var binary = module.emitBinary();
@@ -146,7 +138,7 @@ function draw() {
   }
   function iter() {
     if (pixels.length === 0) return;
-    for (var i = 0; i < MAX_ITERS_PER_PIXEL && pixels.length > 0; i++) {
+    for (var i = 0; i < PIXELS_PER_FRAME && pixels.length > 0; i++) {
       var pixel = pixels.pop();
       var xFraction = pixel.x / image.width;
       var yFraction = pixel.y / image.height;
@@ -157,14 +149,14 @@ function draw() {
       var yPixel = Math.round(yFraction * image.height);
 //alert(x + ' ' + y + '         ' + value);
       var offset = 4 * (xPixel + yPixel * image.width); // RGBA
-      var color = Math.floor(value * 255 / MAX_ITERS_PER_PIXEL);
+      var color = Math.floor(value * 255 / 100);
       data[offset] = color;
       data[offset + 1] = color;
       data[offset + 2] = color;
       data[offset + 3] = 255;
     }
     ctx.putImageData(image, 0, 0);
-    setTimeout(iter, 1000/60);
+    setTimeout(iter, 1);
   }
   setTimeout(iter, 0);
 }
