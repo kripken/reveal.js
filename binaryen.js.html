@@ -50,7 +50,7 @@
 					<h3>Background: WebAssembly</h3>
           <hr>
 					<p>
-						..can run fast..
+						A new binary executable format for the web. Compact and fast.
 					</p>
 				</section>
 
@@ -58,21 +58,17 @@
 					<h3>Background: Binaryen</h3>
           <hr>
 					<p>
-						A compiler infrastructure library for WebAssembly. Provides:
+						A compiler infrastructure library for WebAssembly.
 					</p>
-          <ul>
-            <li>Optimizer/minifier</li>
-            <li>Tools like asm2wasm (asm.js => wasm compiler)</li>
-            <li>C API</li>
-            <li>binaryen.js - a port of Binaryen to the Web</li>
-          </ul>
-				</section>
-
-				<section>
-					<h3>Binaryen Optimizer</h3>
-          <hr>
 					<p>
-            Reduces Rust binaries by X%, LLVM backend binaries by Y%.
+						Helps build compilers to WebAssembly, and tools for processing WebAssembly.
+					</p>
+        </section>
+
+        <section>
+					<h3>Binaryen Optimizer</h3>
+					<p>
+            Reduces LLVM wasm binaries by ~6% (C++ and Rust)
 					</p>
           <p>
             Just like we minify JavaScript, we need to minify WebAssembly.
@@ -82,9 +78,11 @@
 				<section>
 					<h3>Compiling with Binaryen</h3>
           <hr>
-					<p>
-            C API, JavaScript too (binaryen.js). Can use them as part of a compiler to WebAssembly.
-					</p>
+          <ul>
+            <li>asm2wasm</li>
+            <li>C API</li>
+            <li>binaryen.js</li>
+          </li>
 				</section>
 
 				<section>
