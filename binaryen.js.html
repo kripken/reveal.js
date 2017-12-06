@@ -1,139 +1,204 @@
 <!doctype html>
 <html lang="en">
 
-	<head>
-		<meta charset="utf-8">
+  <head>
+    <meta charset="utf-8">
 
-		<title>reveal.js – The HTML Presentation Framework</title>
+    <title>reveal.js – The HTML Presentation Framework</title>
 
-		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
-		<meta name="author" content="Hakim El Hattab">
+    <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+    <meta name="author" content="Hakim El Hattab">
 
-		<meta name="apple-mobile-web-app-capable" content="yes">
-		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/night.css" id="theme">
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/night.css" id="theme">
 
-		<!-- Theme used for syntax highlighting of code -->
-		<link rel="stylesheet" href="lib/css/zenburn.css">
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
 
-		<!-- Printing and PDF exports -->
-		<script>
-			var link = document.createElement( 'link' );
-			link.rel = 'stylesheet';
-			link.type = 'text/css';
-			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
-			document.getElementsByTagName( 'head' )[0].appendChild( link );
-		</script>
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
 
-		<!--[if lt IE 9]>
-		<script src="lib/js/html5shiv.js"></script>
-		<![endif]-->
-	</head>
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
 
-	<body>
+  <body>
 
-		<div class="reveal">
+    <div class="reveal">
 
-			<!-- Any section element inside of this container is displayed as a slide -->
-			<div class="slides">
-				<section>
-					<h1>binaryen.js</h1>
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+        <section>
+          <h1>binaryen.js</h1>
           <hr>
-					<h3>Easily create WebAssembly from JavaScript</h3>
-				</section>
-
-				<section>
-					<h3>Background: WebAssembly</h3>
-          <hr>
-					<p>
-						A new binary executable format for the web. Compact and fast.
-					</p>
-				</section>
-
-				<section>
-					<h3>Background: Binaryen</h3>
-          <hr>
-					<p>
-						A compiler infrastructure library for WebAssembly.
-					</p>
-					<p>
-						Helps build compilers to WebAssembly, and tools for processing WebAssembly.
-					</p>
+          <h3>Easily create WebAssembly from JavaScript</h3>
         </section>
 
         <section>
-					<h3>Binaryen Optimizer</h3>
-					<p>
-            Reduces LLVM wasm binaries by ~6% (C++ and Rust)
-					</p>
+          <h3>Background: WebAssembly</h3>
+          <hr>
           <p>
-            Just like we minify JavaScript, we need to minify WebAssembly.
+            A new binary executable format for the web. Compact and fast.
           </p>
-				</section>
+        </section>
 
-				<section>
-					<h3>Compiling with Binaryen</h3>
+        <section>
+          <h3>Background: Binaryen</h3>
+          <hr>
+          <p>
+            A compiler infrastructure library for WebAssembly.
+          </p>
+          <p>
+            Helps build compilers to WebAssembly, and tools for processing WebAssembly.
+          </p>
+        </section>
+
+        <section>
+          <h3>Binaryen Optimizer</h3>
+          <p>
+            Reduces LLVM wasm binaries by ~6% (C++ and Rust)
+          </p>
+          <p>
+            Easy to do:
+          <pre><code class="hljs" data-trim contenteditable>
+wasm-opt input.wasm -Os -o output.wasm
+          </code></pre>
+          </p>
+        </section>
+
+        <section>
+          <h3>Compiling with Binaryen</h3>
           <hr>
           <ul>
-            <li>asm2wasm</li>
-            <li>C API</li>
-            <li>binaryen.js</li>
+            <li>Provides tools to write a compiler to wasm (e.g., asm2wasm, s2wasm)</li>
+            <li>Has a C API</li>
+            <li>Has a JavaScript port: binaryen.js</li>
           </li>
-				</section>
+        </section>
 
-				<section>
-					<h3>binaryen.js</h3>
+        <section>
+          <h3>binaryen.js</h3>
           <hr>
-					<p>
-						A JavaScript library that can run on the Web or Node.js, and lets you:
-					</p>
+          <p>
+            A JavaScript library that can run on the Web or Node.js, and lets you:
+          </p>
           <ul>
-            <li>Create wasm</li>
+            <li>Create Binaryen IR</li>
             <li>Optimize &amp; minify it</li>
-            <li>etc.</li>
+            <li>Generate wasm from that</li>
           </ul>
-				</section>
+        </section>
 
-				<section>
-					<h3>Demo</h3>
+        <section>
+          <h2>Code Sample</h2>
           <hr>
-          <iframe src="a.html" width="100%" height="100%"></iframe>
-				</section>
-			</div>
+          <pre><code class="hljs" data-trim contenteditable>
+// if we ran enough iterations, return 0
 
-		</div>
+module.if(
+  module.i32.ge_u(                        // >= (unsigned)
+    module.get_local(6, Binaryen.i32),    // the counter
+    module.i32.const(MAX_ITERS_PER_PIXEL) // the limit
+  ),
+  module.return(
+    module.i32.const(0)
+  )
+)
+          </code></pre>
+        </section>
 
-		<script src="lib/js/head.min.js"></script>
-		<script src="js/reveal.js"></script>
+        <section>
+          <h2>Creating wasm</h2>
+          <hr>
+          <pre><code class="hljs" data-trim contenteditable>
+// Create a module
+var module = new Binaryen.Module();
 
-		<script>
+// [..create a function type and the function body..]
 
-			// More info https://github.com/hakimel/reveal.js#configuration
-			Reveal.initialize({
-				controls: true,
-				progress: true,
-				history: true,
-				center: true,
+// Create a function
+module.addFunction('function_name', type, [], body);
 
-				transition: 'slide', // none/fade/slide/convex/concave/zoom
+// Optionally, optimize the module
+module.optimize();
 
-				// More info https://github.com/hakimel/reveal.js#dependencies
-				dependencies: [
-					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
-					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-					{ src: 'plugin/search/search.js', async: true },
-					{ src: 'plugin/zoom-js/zoom.js', async: true },
-					{ src: 'plugin/notes/notes.js', async: true }
-				]
-			});
+// Get a wasm binary (in typed array form)
+var binary = module.emitBinary();
+          </code></pre>
+        </section>
 
-		</script>
+        <section>
+          <h2>Using wasm</h2>
+          <hr>
+          <pre><code class="hljs" data-trim contenteditable>
+// Create an instance we can call
+// (normally you'd use the async APIs, but this is tiny)
+var wasm = new WebAssembly.Instance(
+  new WebAssembly.Module(binary),
+  {}
+);
 
-	</body>
+// Call it!
+wasm.exports.function_name();
+          </code></pre>
+        </section>
+
+        <section>
+          <h3>Demo</h3>
+          <hr>
+          <iframe src="a.html" width="300" height="300" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:3px solid #666; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe>
+          </iframe>
+          </span>
+          <p>
+            The wasm is created on this page!
+          </p>
+          <p class="fragment">
+            The end, thanks for listening.
+          </p>
+        </section>
+      </div>
+
+    </div>
+
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+
+    <script>
+
+      // More info https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [
+          { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: 'plugin/search/search.js', async: true },
+          { src: 'plugin/zoom-js/zoom.js', async: true },
+          { src: 'plugin/notes/notes.js', async: true }
+        ]
+      });
+
+    </script>
+
+  </body>
 </html>

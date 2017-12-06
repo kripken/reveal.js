@@ -1,8 +1,11 @@
 // Mandlebrot runs a certain # of iterations
-const MAX_ITERS_PER_PIXEL = 200;
+const MAX_ITERS_PER_PIXEL = 1000;
 
 // How many pixels to render per frame
 const PIXELS_PER_FRAME = 5000;
+
+// How to scale the colors
+const COLOR_FACTOR = 15;
 
 // The area to draw
 const UPPER_LEFT = { x: -2.5, y: -1.75 };
@@ -12,7 +15,7 @@ const LOWER_RIGHT = { x: 1, y: 1.75 };
 var module = new Binaryen.Module();
 
 // Create a function type for  i32 (f32, f32)  (i.e., return i32, get two f32 params)
-var iff = module.addFunctionType('i', Binaryen.i32, [Binaryen.f32, Binaryen.f32]);
+var iff = module.addFunctionType('iff', Binaryen.i32, [Binaryen.f32, Binaryen.f32]);
 
 // We receive two parameters, 0 and 1, and add two local variables,
 // 2 and 3, 4 and 5, for the current and next complex number,
@@ -144,15 +147,15 @@ function draw() {
       var yFraction = pixel.y / image.height;
       var x = UPPER_LEFT.x + xFraction * (LOWER_RIGHT.x - UPPER_LEFT.x);
       var y = UPPER_LEFT.y + yFraction * (LOWER_RIGHT.y - UPPER_LEFT.y);
-      var value = wasm.exports.mandelbrot(x, y) * 10;
+      var value = wasm.exports.mandelbrot(x, y);
       var xPixel = Math.round(xFraction * image.width);
       var yPixel = Math.round(yFraction * image.height);
 //alert(x + ' ' + y + '         ' + value);
       var offset = 4 * (xPixel + yPixel * image.width); // RGBA
-      var color = Math.floor(value * 255 / 100);
-      data[offset] = color;
-      data[offset + 1] = color;
-      data[offset + 2] = color;
+      var colorFraction = Math.min(value / COLOR_FACTOR, 1);
+      data[offset] = Math.pow(colorFraction, 1.666) * 255;
+      data[offset + 1] = Math.pow(colorFraction, 1.25) * 255;
+      data[offset + 2] = Math.pow(colorFraction, 0.5) * 255;
       data[offset + 3] = 255;
     }
     ctx.putImageData(image, 0, 0);
