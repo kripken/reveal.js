@@ -31,10 +31,10 @@
 
     <style type="text/css">
       b {
-        color: #d29d4b;
+        color: #b25d0b;
       }
       strong {
-        color: #a25d0b;
+        color: #b25d0b;
       }
     </style>
 
@@ -55,28 +55,31 @@
           <br>
           <hr>
           <br>
-          <h3>Easily create <b>WebAssembly</b> from <strong>JavaScript</strong></h3>
+          <h3>Create <b>WebAssembly</b><br>from <strong>JavaScript</strong></h3>
         </section>
 
         <section>
-          <h3>Background: WebAssembly</h3>
+          <h3>Background</h3>
           <hr>
           <p>
-            WebAssembly (wasm) is a new binary executable format for the web.
+            <a href="http://webassembly.org/">WebAssembly</a> (wasm) is a new binary executable format for the web.
           </p>
           <p>
-            <b>Compact</b> and <strong>fast</strong>.
+            It's <b>compact</b> and <strong>fast</strong>.
           </p>
         </section>
 
         <section>
-          <h3>Background: Binaryen</h3>
+          <h3>Background</h3>
           <hr>
           <p>
-            A <b>compiler infrastructure library</b> for WebAssembly.
+            <a href="https://github.com/WebAssembly/binaryen">Binaryen</a> is a <b>compiler infrastructure library</b> for WebAssembly.
           </p>
           <p>
             Helps build <strong>compilers</strong> to WebAssembly, and <strong>tools</strong> for processing it.
+          </p>
+          <p>
+            One important tool it provides is an <b>optimizer</b>.
           </p>
         </section>
 
@@ -84,24 +87,27 @@
           <h3>Binaryen Optimizer</h3>
           <hr>
           <p>
-            Reduces LLVM wasm binaries by <b>~6%</b> (C++ and Rust)
+            Shrinks LLVM wasm binaries by <b>~6%</b> (C++ and Rust).
+          </p>
+          <p>Like
+            a JavaScript minifier, but for WebAssembly.
           </p>
           <p>
-            <strong>Easy</strong> to do:
+            <strong>Easy</strong> to use:
           <pre><code class="hljs" data-trim contenteditable>
 // give it a wasm file...
 wasm-opt input.wasm -Os -o output.wasm
-// ...get a better wasm file
+// ...get a better wasm file :)
           </code></pre>
           </p>
         </section>
 
         <section>
-          <h3>Compiling with Binaryen</h3>
+          <h3>You can write a compiler<br>with Binaryen</h3>
           <hr>
           <ul>
             <li>Has a <b>C API</b></li>
-            <li>Has a <strong>JavaScript port</strong>: <b>binaryen.js</b></li>
+            <li>Has a <strong>JavaScript port</strong>: <a href="https://github.com/WebAssembly/binaryen/blob/master/bin/binaryen.js">binaryen.js</a></li>
           </li>
         </section>
 
@@ -122,6 +128,8 @@ wasm-opt input.wasm -Os -o output.wasm
           <h2>Creating IR</h2>
           <hr>
           <pre><code class="hljs" data-trim contenteditable>
+// Example from a Mandlebrot computation
+
 // if we ran enough iterations, return 0
 
 module.if(
@@ -157,7 +165,7 @@ var binary = module.emitBinary();
         </section>
 
         <section>
-          <h2>Using wasm</h2>
+          <h2>Running the wasm</h2>
           <hr>
           <pre><code class="hljs" data-trim contenteditable>
 // Create an instance we can call
@@ -179,7 +187,7 @@ wasm.exports.function_name();
           </iframe>
           <hr>
           <p>
-            WebAssembly is <b>created on this page</b>!
+            The wasm used here was created on this page with binaryen.js.
           </p>
           <p class="fragment">
             <strong>The end, thanks for listening.</strong>
