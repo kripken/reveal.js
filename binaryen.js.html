@@ -75,10 +75,10 @@
           <p>
             <a href="https://github.com/WebAssembly/binaryen">Binaryen</a> is a <b>compiler infrastructure library</b> for WebAssembly.
           </p>
-          <p>
+          <p class="fragment">
             Helps build <strong>compilers</strong> to WebAssembly, and <strong>tools</strong> for processing it.
           </p>
-          <p>
+          <p class="fragment">
             One important tool it provides is an <b>optimizer</b>.
           </p>
         </section>
@@ -89,9 +89,10 @@
           <p>
             Shrinks LLVM wasm binaries by <b>~6%</b> (C++ and Rust).
           </p>
-          <p>Like
+          <p class="fragment">Like
             a JavaScript minifier, but for WebAssembly.
           </p>
+          <div class="fragment">
           <p>
             <strong>Easy</strong> to use:
           <pre><code class="hljs" data-trim contenteditable>
@@ -100,6 +101,7 @@ wasm-opt input.wasm -Os -o output.wasm
 // ...get a better wasm file :)
           </code></pre>
           </p>
+          </div>
         </section>
 
         <section>
@@ -107,7 +109,7 @@ wasm-opt input.wasm -Os -o output.wasm
           <hr>
           <ul>
             <li>Has a <b>C API</b></li>
-            <li>Has a <strong>JavaScript port</strong>: <a href="https://github.com/WebAssembly/binaryen/blob/master/bin/binaryen.js">binaryen.js</a></li>
+            <li class="fragment">Has a <strong>JavaScript port</strong>: <a href="https://github.com/WebAssembly/binaryen/blob/master/bin/binaryen.js">binaryen.js</a></li>
           </li>
         </section>
 
@@ -131,8 +133,7 @@ wasm-opt input.wasm -Os -o output.wasm
 // Example from a Mandlebrot computation
 
 // if we ran enough iterations, return 0
-
-module.if(
+var code = module.if(
   module.i32.ge_u(                        // >= (unsigned)
     module.get_local(6, Binaryen.i32),    // the counter
     module.i32.const(MAX_ITERS_PER_PIXEL) // the limit
@@ -140,7 +141,7 @@ module.if(
   module.return(
     module.i32.const(0)
   )
-)
+);
           </code></pre>
         </section>
 
@@ -153,7 +154,7 @@ var module = new Binaryen.Module();
 
 // [..create a function type and the function body..]
 
-// Create a function
+// Add a function
 module.addFunction('function_name', type, [], body);
 
 // Optionally, optimize the module
@@ -187,7 +188,7 @@ wasm.exports.function_name();
           </iframe>
           <hr>
           <p>
-            The wasm used here was created on this page with binaryen.js.
+            (this page creates the wasm to draw this Mandlebrot using binaryen.js)
           </p>
           <p class="fragment">
             <strong>The end, thanks for listening.</strong>
