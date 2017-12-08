@@ -7,6 +7,11 @@ const PIXELS_PER_FRAME = 5000;
 // How to scale the colors
 const COLOR_FACTOR = 15;
 
+// How to scale the RGB elements
+var R_POW_FACTOR = 1.666;
+var G_POW_FACTOR = 1.25;
+var B_POW_FACTOR = 0.5;
+
 // The area to draw
 const UPPER_LEFT = { x: -2.5, y: -1.75 };
 const LOWER_RIGHT = { x: 1, y: 1.75 };
@@ -126,41 +131,54 @@ function draw() {
   var ctx = canvas.getContext('2d');
   var image = ctx.getImageData(0, 0, canvas.width, canvas.height);
   var data = image.data;
-  var pixels = [];
-  for (var x = 0; x < image.width; x++) {
-    for (var y = 0; y < image.height; y++) {
-      pixels.push({ x : x, y : y });
+  var counter = 0;
+  function drawItAll() {
+    var pixels = [];
+    for (var x = 0; x < image.width; x++) {
+      for (var y = 0; y < image.height; y++) {
+        pixels.push({ x : x, y : y });
+      }
     }
-  }
-  // fancy semi-shuffle
-  for (var i = 0; i < pixels.length; i++) {
-    var j = Math.floor(Math.random() * (pixels.length - i));
-    var t = pixels[i];
-    pixels[i] = pixels[j];
-    pixels[j] = t;
-  }
-  function iter() {
-    if (pixels.length === 0) return;
-    for (var i = 0; i < PIXELS_PER_FRAME && pixels.length > 0; i++) {
-      var pixel = pixels.pop();
-      var xFraction = pixel.x / image.width;
-      var yFraction = pixel.y / image.height;
-      var x = UPPER_LEFT.x + xFraction * (LOWER_RIGHT.x - UPPER_LEFT.x);
-      var y = UPPER_LEFT.y + yFraction * (LOWER_RIGHT.y - UPPER_LEFT.y);
-      var value = wasm.exports.mandelbrot(x, y);
-      var xPixel = Math.round(xFraction * image.width);
-      var yPixel = Math.round(yFraction * image.height);
-//alert(x + ' ' + y + '         ' + value);
-      var offset = 4 * (xPixel + yPixel * image.width); // RGBA
-      var colorFraction = Math.min(value / COLOR_FACTOR, 1);
-      data[offset] = Math.pow(colorFraction, 1.666) * 255;
-      data[offset + 1] = Math.pow(colorFraction, 1.25) * 255;
-      data[offset + 2] = Math.pow(colorFraction, 0.5) * 255;
-      data[offset + 3] = 255;
+    // fancy semi-shuffle
+    for (var i = 0; i < pixels.length; i++) {
+      var j = Math.floor(Math.random() * (pixels.length - i));
+      var t = pixels[i];
+      pixels[i] = pixels[j];
+      pixels[j] = t;
     }
-    ctx.putImageData(image, 0, 0);
-    setTimeout(iter, 1);
+    function iter() {
+      if (pixels.length === 0) {
+        // all done! draw it all again, with different colors
+        R_POW_FACTOR += 0.5*Math.cos(counter) - 0.1;
+        R_POW_FACTOR = Math.max(1, R_POW_FACTOR);
+        G_POW_FACTOR += 0.1*Math.cos(counter);
+        B_POW_FACTOR += 0.25*Math.sin(counter);
+        counter++;
+        drawItAll();
+        return;
+      }
+      for (var i = 0; i < PIXELS_PER_FRAME && pixels.length > 0; i++) {
+        var pixel = pixels.pop();
+        var xFraction = pixel.x / image.width;
+        var yFraction = pixel.y / image.height;
+        var x = UPPER_LEFT.x + xFraction * (LOWER_RIGHT.x - UPPER_LEFT.x);
+        var y = UPPER_LEFT.y + yFraction * (LOWER_RIGHT.y - UPPER_LEFT.y);
+        var value = wasm.exports.mandelbrot(x, y);
+        var xPixel = Math.round(xFraction * image.width);
+        var yPixel = Math.round(yFraction * image.height);
+  //alert(x + ' ' + y + '         ' + value);
+        var offset = 4 * (xPixel + yPixel * image.width); // RGBA
+        var colorFraction = Math.min(value / COLOR_FACTOR, 1);
+        data[offset] = Math.pow(colorFraction, R_POW_FACTOR) * 255;
+        data[offset + 1] = Math.pow(colorFraction, G_POW_FACTOR) * 255;
+        data[offset + 2] = Math.pow(colorFraction, B_POW_FACTOR) * 255;
+        data[offset + 3] = 255;
+      }
+      ctx.putImageData(image, 0, 0);
+      setTimeout(iter, 1);
+    }
+    setTimeout(iter, 0);
   }
-  setTimeout(iter, 0);
+  drawItAll();
 }
 
