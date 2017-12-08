@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
 
-    <title>reveal.js – The HTML Presentation Framework</title>
+    <title>binaryen.js</title>
 
     <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
     <meta name="author" content="Hakim El Hattab">
@@ -55,7 +55,7 @@
           <br>
           <hr>
           <br>
-          <h3>Create <b>WebAssembly</b><br>from <strong>JavaScript</strong></h3>
+          <h3>Creating <b>WebAssembly</b><br>from <strong>JavaScript</strong></h3>
         </section>
 
         <section>
@@ -70,37 +70,21 @@
         </section>
 
         <section>
-          <h3>Background</h3>
+          <h3>Binaryen</h3>
           <hr>
           <p>
-            <a href="https://github.com/WebAssembly/binaryen">Binaryen</a> is a <b>compiler infrastructure library</b> for WebAssembly.
-          </p>
-          <p class="fragment">
-            Helps build <strong>compilers</strong> to WebAssembly, and <strong>tools</strong> for processing it.
-          </p>
-          <p class="fragment">
-            One important tool it provides is an <b>optimizer</b>.
-          </p>
-        </section>
-
-        <section>
-          <h3>Binaryen Optimizer</h3>
-          <hr>
-          <p>
-            Shrinks LLVM wasm binaries by <b>~6%</b> (C++ and Rust).
-          </p>
-          <p class="fragment">Like
-            a JavaScript minifier, but for WebAssembly.
+            A <a href="https://github.com/WebAssembly/binaryen">compiler library</a> for WebAssembly, providing a reader, writer, optimizer, etc.
           </p>
           <div class="fragment">
-          <p>
-            <strong>Easy</strong> to use:
-          <pre><code class="hljs" data-trim contenteditable>
-// give it a wasm file...
-wasm-opt input.wasm -Os -o output.wasm
-// ...get a better wasm file :)
-          </code></pre>
-          </p>
+            <p>
+              Binaryen optimizer shrinks LLVM wasm binaries by <b>~5%</b> (C++ and Rust) by just doing
+            <pre><code data-trim contenteditable>
+  wasm-opt -Os input.wasm -o output.wasm
+            </code></pre>
+            </p>
+            <p>
+              (like a JavaScript minifier, but for WebAssembly)
+            </p>
           </div>
         </section>
 
@@ -117,11 +101,11 @@ wasm-opt input.wasm -Os -o output.wasm
           <h3>binaryen.js</h3>
           <hr>
           <p>
-            A JavaScript library that lets you:
+            The <a href="https://github.com/WebAssembly/binaryen/blob/master/docs/binaryen.js.Markdown">API</a> lets you:
           </p>
           <ul>
             <li><b>Create</b> Binaryen IR</li>
-            <li><strong>Optimize &amp; minify</strong> it</li>
+            <li><strong>Optimize</strong> &amp; <strong>minify</strong> it</li>
             <li><b>Generate wasm</b> from that</li>
           </ul>
         </section>
