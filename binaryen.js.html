@@ -166,9 +166,9 @@ wasm.exports.function_name();
         </section>
 
         <section>
-          <h3>Silly Demo</h3>
-          <hr>
-          <iframe src="mandlebrot/mandlebrot.html" width="300" height="300" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:3px solid #666; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe>
+          <input value="Silly Demo" type="button" onclick="getElementById('mandlebrot').src = 'mandlebrot/mandlebrot.html'">
+          <br>
+          <iframe id="mandlebrot" width="300" height="300" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:3px solid #666; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe>
           </iframe>
           <p>
             (this page used binaryen.js to create the wasm to draw this)
