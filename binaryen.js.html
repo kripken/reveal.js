@@ -73,23 +73,23 @@
           <h3>Binaryen</h3>
           <hr>
           <p>
-            A <a href="https://github.com/WebAssembly/binaryen">compiler library</a> for WebAssembly, providing a reader, writer, optimizer, etc.
+            A <a href="https://github.com/WebAssembly/binaryen">compiler library</a> for WebAssembly, providing a bunch of useful things.
           </p>
           <div class="fragment">
             <p>
-              Binaryen optimizer shrinks LLVM wasm binaries by <b>~5%</b> (C++ and Rust) by just doing
+              For example, an optimizer: shrinks LLVM wasm binaries by <b>~5%</b> (C++ and Rust) by just doing
             <pre><code data-trim contenteditable>
   wasm-opt -Os input.wasm -o output.wasm
             </code></pre>
             </p>
-            <p>
-              (like a JavaScript minifier, but for WebAssembly)
-            </p>
           </div>
+          <p class="fragment">
+            (like a JavaScript minifier, but for WebAssembly)
+          </p>
         </section>
 
         <section>
-          <h3>You can write a compiler<br>with Binaryen</h3>
+          <h3>You can also write a compiler<br>with Binaryen</h3>
           <hr>
           <ul>
             <li>Has a <b>C API</b></li>
@@ -136,10 +136,7 @@ var code = module.if(
 // Create a module
 var module = new Binaryen.Module();
 
-// [..create a function type and the function body..]
-
-// Add a function
-module.addFunction('function_name', type, [], body);
+// [..create module contents, examples on last slide..]
 
 // Optionally, optimize the module
 module.optimize();
@@ -153,22 +150,20 @@ var binary = module.emitBinary();
           <h2>Running the wasm</h2>
           <hr>
           <pre><code class="hljs" data-trim contenteditable>
-// Create an instance we can call
-// (normally you'd use the async APIs, but this is tiny)
-var wasm = new WebAssembly.Instance(
-  new WebAssembly.Module(binary),
-  {}
-);
+// Compile the binary
+WebAssembly.instantiate(binary, {}).then(function(output) {
+  var wasm = output.instance;
 
-// Call it!
-wasm.exports.function_name();
+  // Call it!
+  wasm.exports.function_name();
+});
           </code></pre>
         </section>
 
         <section>
-          <input value="create some wasm and run it" style="font-size: 1em; margin-bottom: 0.5em" type="button" onclick="var iframe = getElementById('mandlebrot'); if (iframe.src.indexOf('mandlebrot') > 0) iframe.src = ''; else iframe.src = 'mandlebrot/mandlebrot.html'">
+          <input value="create some wasm (here on the page!) and run it" style="font-size: 1em; margin-bottom: 0.5em" type="button" onclick="var iframe = getElementById('mandlebrot'); if (iframe.src.indexOf('mandlebrot') > 0) iframe.src = ''; else iframe.src = 'mandlebrot/mandlebrot.html'">
           <br>
-          <iframe id="mandlebrot" width="300" height="300" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:3px solid #666; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe>
+          <iframe id="mandlebrot" width="300" height="300" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:3px solid #666; margin-bottom:5px; background-color: #89a" allowfullscreen> </iframe>
           </iframe>
           <br>
           <p class="fragment">
