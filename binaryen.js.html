@@ -166,7 +166,7 @@ wasm.exports.function_name();
         </section>
 
         <section>
-          <input value="Silly Demo" type="button" onclick="getElementById('mandlebrot').src = 'mandlebrot/mandlebrot.html'">
+          <input value="Silly Demo" style="font-size: 1em; margin-bottom: 0.5em" type="button" onclick="var iframe = getElementById('mandlebrot'); if (iframe.src.indexOf('mandlebrot') > 0) iframe.src = ''; else iframe.src = 'mandlebrot/mandlebrot.html'">
           <br>
           <iframe id="mandlebrot" width="300" height="300" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:3px solid #666; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe>
           </iframe>
