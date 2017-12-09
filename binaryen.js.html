@@ -166,13 +166,11 @@ wasm.exports.function_name();
         </section>
 
         <section>
-          <input value="Silly Demo" style="font-size: 1em; margin-bottom: 0.5em" type="button" onclick="var iframe = getElementById('mandlebrot'); if (iframe.src.indexOf('mandlebrot') > 0) iframe.src = ''; else iframe.src = 'mandlebrot/mandlebrot.html'">
+          <input value="create some wasm and run it" style="font-size: 1em; margin-bottom: 0.5em" type="button" onclick="var iframe = getElementById('mandlebrot'); if (iframe.src.indexOf('mandlebrot') > 0) iframe.src = ''; else iframe.src = 'mandlebrot/mandlebrot.html'">
           <br>
           <iframe id="mandlebrot" width="300" height="300" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:3px solid #666; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe>
           </iframe>
-          <p>
-            (this page uses binaryen.js to create the wasm to draw this)
-          </p>
+          <br>
           <p class="fragment">
             <strong>The end, thanks for listening!</strong>
           </p>
