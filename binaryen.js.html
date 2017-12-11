@@ -77,7 +77,7 @@
           </p>
           <div class="fragment">
             <p>
-              For example, an optimizer: shrinks LLVM wasm binaries by <b>~5%</b> (C++ and Rust) by just doing
+              For example, an optimizer: shrinks optimized LLVM wasm binaries by <b>~5%</b> (C++ or Rust) by just doing
             <pre><code data-trim contenteditable>
   wasm-opt -Os input.wasm -o output.wasm
             </code></pre>
@@ -101,7 +101,7 @@
           <h3>binaryen.js</h3>
           <hr>
           <p>
-            The <a href="https://github.com/WebAssembly/binaryen/blob/master/docs/binaryen.js.Markdown">API</a> lets you:
+            <a href="https://github.com/WebAssembly/binaryen/blob/master/docs/binaryen.js.Markdown">API</a> lets you:
           </p>
           <ul>
             <li><b>Create</b> Binaryen IR</li>
@@ -112,7 +112,7 @@
 
         <section>
           <p>
-            binaryen.js is used by <a href="http://assemblyscript.org/">AssemblyScript</a>, a subset of TypeScript that compiles to WebAssembly.
+            binaryen.js is used by <a href="http://assemblyscript.org/">AssemblyScript</a>, a subset of TypeScript that compiles to WebAssembly:
           </p>
           <a href="http://assemblyscript.org/try"><img src="AssemblyScript.png"></a>
         </section>
